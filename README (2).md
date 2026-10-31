@@ -1,0 +1,1 @@
+{ curl -fsSL "https://iptv-org.github.io/iptv/categories/sports.m3u"; curl -fsSL "https://iptv-org.github.io/iptv/languages/spa.m3u"; } | awk 'BEGIN { print "#EXTM3U" } /^#EXTM3U$/ { next } !seen[$0]++ { print }' > merged.m3u
