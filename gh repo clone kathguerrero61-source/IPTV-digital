@@ -3,4 +3,19 @@
 https://iptv-org.github.io/iptv/languages/spa.m3u
 #EXTINF:-1, --- CANALES DE DEPORTES ---
 https://iptv-org.github.io/iptv/categories/sports.m3u
+mkdir -p iptv && cd iptv
 
+curl -L "https://iptv-org.github.io/iptv/categories/sports.m3u" -o sports.m3u
+curl -L "https://iptv-org.github.io/iptv/languages/spa.m3u" -o spa.m3u
+
+# quitamos la primera línea del archivo spa (el #EXTM3U)
+tail -n +2 spa.m3u > spa_noheader.m3u
+
+# juntamos ambos en uno solo
+{
+  head -n 1 sports.m3u
+  tail -n +2 sports.m3u
+  cat spa_noheader.m3u
+} > todo.m3u
+
+echo "Archivo listo: $(pwd)/todo.m3u"
